@@ -7,9 +7,66 @@ class GeneticAlg
 {
     constructor(population = 100)
     {
+        // this.__forPresentationOnly(population);
+        this.run(population);
+    }
+
+    run(population)
+    {
+        console.log("START");
+        this.population = this.genPopulation(population);
+
+        let fitnessvals = this.population.map( x => x.fitness );
+        
+        let it = 0;
+        while(!_.contains(fitnessvals, Conf.STOP_CTR) && it < Conf.MAX_ITER)
+        {
+            this.population = this.newGeneration(it);
+            fitnessvals = this.population.map( x => x.fitness );
+            it++;
+        }
+
+        let results = [];
+        this.population.forEach(x => {
+            if(x.fitness === Conf.STOP_CTR)
+            {
+                let board = new Board(Conf.QUEENS);
+                board.update(x);
+                console.log(x);
+                results.push(board);
+            }
+        });
+
+        console.log("Results found: "+results.length);
+        results.forEach(board => {
+            board.print();
+        });
+    }
+
+    newGeneration(it)
+    {
+        console.log("Running genect alg.. #"+it);
+        let newPopulation = [];
+        for(let i=0; i < this.population.length; i++)
+        {
+            let parents = this.getParent();
+            let child = this.reproduceCrossover(parents[0], parents[1]);
+
+            if(Conf.MUTATE_FLAG){
+                child = this.mutate(child);
+            }
+
+            newPopulation.push(child);
+        }
+
+        return newPopulation;
+    }
+
+    __forPresentationOnly(population)
+    {
         // Initial population.  
         this.population = this.genPopulation(population);
-        this.board = new Board(Conf.QUEENS);
+        this.board = new Board();
         this.board.update(this.population[0]);
         this.board.print();
 
@@ -21,7 +78,7 @@ class GeneticAlg
     }
 
     genChromosome(){
-        return Rand.sequence(8);
+        return Rand.sequence(Conf.QUEENS);
     }
 
     genPopulation(size)
@@ -101,6 +158,9 @@ class GeneticAlg
             let c = Rand.number(child.sequence.length);
             child.sequence[c] = Rand.number(Conf.QUEENS);
         }
+
+        child.calcFitness();
+        return child;
     }
 }
 

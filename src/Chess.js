@@ -68,7 +68,7 @@ class Individual
                 {
                     let dx = Math.abs(i - j);
                     let dy = Math.abs(this.sequence[i] - this.sequence[j]);
-                    if(dx == dy){
+                    if(dx === dy){
                         clashes++;
                     }
                 }

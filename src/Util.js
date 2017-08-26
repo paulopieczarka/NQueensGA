@@ -10,7 +10,7 @@ module.exports =
          */
         number(n) 
         {
-            return Math.floor(Math.random()*n);
+            return _.random(n-1);
         },
 
         /**
@@ -28,9 +28,8 @@ module.exports =
         sequence(n)
         {
             let arr = [];
-            for(let i=0; i < n; i++, arr[i-1] = i-1);
-            
-            return _.shuffle(arr);
+            for(let i=0; i < n; i++, arr[i-1] = _.random(n-1));
+            return arr;
         }
     }
 };
