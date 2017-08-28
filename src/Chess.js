@@ -28,9 +28,6 @@ class Board
     print()
     {
         console.log("------------------------------");
-        console.log("Best:");
-        console.log("Worst:");
-        console.log("------------------------------");
         console.log(this.matrix);
         console.log("------------------------------");
     }

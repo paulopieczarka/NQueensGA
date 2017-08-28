@@ -18,6 +18,7 @@ class GeneticAlg
     run(population)
     {
         console.log("START");
+        this.average = 0;
         this.population = this.genPopulation(population);
 
         let fitnessvals = this.population.map( x => x.fitness );
@@ -26,6 +27,7 @@ class GeneticAlg
         while(!_.contains(fitnessvals, Conf.STOP_CTR) && it < Conf.MAX_ITER)
         {
             this.population = this.newGeneration(it);
+            this.average += this.population[0].fitness;
             fitnessvals = this.population.map( x => x.fitness );
             it++;
         }
@@ -41,7 +43,10 @@ class GeneticAlg
             }
         });
 
+        this.average /= it;
+        console.log("------------------------------");
         console.log("Results found: "+results.length);
+        console.log("Fitness average: "+this.average);
         results.forEach(board => {
             board.print();
         });
