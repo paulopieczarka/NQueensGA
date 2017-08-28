@@ -7,6 +7,10 @@ class GeneticAlg
 {
     constructor(population = 100)
     {
+        let f = n => (n<2)?1: f(n-1) + n;
+        Conf.STOP_CTR = f(Conf.QUEENS-1);
+        console.log(Conf.STOP_CTR);
+
         // this.__forPresentationOnly(population);
         this.run(population);
     }

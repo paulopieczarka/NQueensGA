@@ -1,4 +1,5 @@
 const _ = require("underscore");
+const { Conf } = require("./Conf");
 
 class Board
 {
@@ -76,7 +77,7 @@ class Individual
         }
 
         // 28 max fitness.
-        return 28 - clashes;
+        return Conf.STOP_CTR - clashes;
     }
 }
 
