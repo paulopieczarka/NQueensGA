@@ -54,7 +54,9 @@ class GeneticAlg
 
     newGeneration(it)
     {
-        console.log("Running genect alg.. #"+it);
+        this.population = this.population.sort((a, b) => b.fitness - a.fitness);
+
+        console.log("Running genect alg.. #"+it+" \t ["+(Conf.STOP_CTR-this.population[0].fitness)+" ~ "+(this.average/it)+"]");
         let newPopulation = [];
         for(let i=0; i < this.population.length; i++)
         {

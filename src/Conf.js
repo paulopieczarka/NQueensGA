@@ -2,7 +2,7 @@ module.exports =
 {
     Conf :
     {
-        QUEENS: 9,
+        QUEENS: 8,
         STOP_CTR: 28,
         MUTATE_FLAG: true,
         MUTATE: 0.01,
